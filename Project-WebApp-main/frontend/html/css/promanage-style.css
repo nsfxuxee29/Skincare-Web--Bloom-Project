@@ -1,0 +1,297 @@
+/* Reset and basic styling */
+*{
+    font-family: 'Poppins';
+    margin: 0;
+}
+body{
+    background-color: #F3F0EF;
+}
+
+
+#nav-header{
+    background-color: #EC297B; 
+}
+
+.logo img {
+    width: auto;
+    height: 70px;
+    margin-left: 5rem; 
+    border-bottom: 1px solid #EC297B;
+}
+.menu{
+    display: flex;
+    flex-direction: row;
+}
+#menu {
+    margin-top: 8px;    
+    list-style: none;
+    border-bottom: 2px solid #d0cccc;
+}
+
+
+.menunav i{
+    padding-right: 8px;
+    font-size: 20px;
+
+}
+
+.menu a:hover {
+    color: #EC297B;
+}
+
+.menunav {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    justify-content: space-between;
+    margin-left: 8rem;
+    margin-right: 8rem;
+}
+
+.menunav a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    margin-right: 25px;
+}
+
+.product-management{
+    color: #EC297B !important;
+}
+
+.menunav a:hover {
+    color: #EC297B;
+}
+
+
+
+
+ /* Main content styling */
+.products-section {
+    padding: 5rem;
+
+}
+
+
+
+.product-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.product-nav span {
+    color: #333;
+    font-weight: 600;
+}
+
+.products-section1 {
+    display: flex;
+    /* ใช้ Flexbox สำหรับจัดระเบียบ */
+    justify-content: space-between;
+    /* จัดระเบียบให้ห่างกัน */
+    align-items: center;
+    /* จัดแนวให้แนวนอนอยู่ในกลาง */
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-bar {
+    padding: 0.5rem 2rem 0.5rem 0.5rem;
+    /* เพิ่ม padding ด้านข้างเพื่อให้มีที่ว่างสำหรับไอคอน */
+    border: 1px solid #ccc;
+    /* กำหนดกรอบให้กับช่องค้นหา */
+    border-radius: 4px;
+    /* ทำให้มุมกรอบนุ่มนวล */
+    margin-left: auto;
+    /* ทำให้กล่องค้นหาชิดขวา */
+    width: 280px;
+    /* กำหนดความกว้างของช่องค้นหา */
+    height: 18px;
+    /* กำหนดความสูงของช่องค้นหา */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* เพิ่มเงาให้กับกล่องค้นหา */
+    transition: border-color 0.3s;
+    /* เพิ่มการเปลี่ยนแปลงของสีกรอบ */
+}
+
+.search-bar:focus {
+    border-color: #EC297B;
+    /* เปลี่ยนสีกรอบเมื่อช่องค้นหาอยู่ในสถานะโฟกัส */
+    outline: none;
+    /* ลบเอาท์ไลน์ออก */
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px; /* ระยะห่างจากขอบขวา */
+    top: 50%;
+    transform: translateY(-30%); /* ทำให้ไอคอนอยู่ตรงกลางแนวตั้ง */
+    color: #888;
+    font-size: 1.1rem;
+    pointer-events: none; /* ป้องกันไม่ให้ไอคอนรับการโต้ตอบ */
+}
+
+
+.bi-trash3{
+    display: flex;
+    font-size: 16px;
+    color: black ;
+}
+
+.bi-trash3:hover {
+    color: #EC297B; /* เปลี่ยนสีไอคอนเมื่อ hover */
+    cursor: pointer; /* เพิ่ม cursor แบบ pointer เมื่อ hover */
+}
+
+/* Container and Header */
+.container {
+    margin: auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 10px; /* Add padding to align nicely with the container */
+}
+.header2{
+    position: relative;
+}
+.header h1 {
+    font-size: 18px;
+    margin: 0;
+    flex: 1; /* Ensure it takes available space */
+}
+
+.header .delete {
+    margin-right: 10px; /* Add spacing between delete icon and button */
+}
+
+.header .delete a i {
+    font-size: 18px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.header .delete a i:hover {
+    color: #EC297B;
+}
+
+.add-button {
+    background-color: #ff4b84;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 10px; /* Ensure spacing between delete icon and button */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+    background-color: #ff6fa8;
+}
+
+
+/* Table Styles */
+ /* สไตล์พื้นฐานสำหรับตาราง */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        margin-top: 20px;
+    }
+
+    /* สไตล์สำหรับหัวตาราง */
+    thead th {
+        background-color: #f8f8f8;
+        color: #333;
+        font-weight: bold;
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* สไตล์สำหรับแถวในตาราง */
+    tbody tr {
+        border-bottom: 1px solid #eee;
+    }
+
+    /* เพิ่มสไตล์สำหรับแถวที่ไฮไลต์เมื่อ hover */
+    tbody tr:hover {
+        background-color: #f2f2f2;
+    }
+
+    /* ช่องเลือก Checkbox */
+    .checkbox input[type="checkbox"] {
+        cursor: pointer;
+
+    }
+    .checkbox input[type="checkbox"]:checked {
+        accent-color: #EC297B;
+    }
+
+    /* ช่องแสดงรูปภาพ */
+    .image-placeholder {
+        width: 50px;
+        height: 50px;
+        background-color: #ccc;
+        border-radius: 4px;
+    }
+
+    /* ช่องแสดงสถานะ */
+    .status {
+        padding: 3px 8px;
+        border-radius: 4px;
+        color: white;
+        font-weight: bold;
+    }
+
+    .status.active {
+        background-color: #4CAF50;
+    }
+
+    .status.draft {
+        background-color: #b1afad;
+    }
+
+    /* ช่องสำหรับปุ่มการทำงาน */
+    .actions .edit-icon i {
+        font-size: 16px;
+        color: #00060c;
+        cursor: pointer;
+        transition: color 0.2s ease-in-out;
+    }
+
+    .actions .edit-icon i:hover {
+        color: #EC297B;
+    }
+
+    /* สไตล์สำหรับเซลล์ในตาราง */
+    td, th {
+        padding: 12px;
+        vertical-align: middle;
+    }
+
+    /* กำหนดให้เซลล์ของ checkbox และ action มีขนาดที่เหมาะสม */
+    .checkbox, .actions {
+        text-align: center;
+        width: 50px;
+    }

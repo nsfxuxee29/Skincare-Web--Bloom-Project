@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/Product_mana_from.css">
+    <link rel="icon" href="..\src\icon bloom.png" sizes="180x180">
+
+    <title>Update Product</title>
+
+</head>
+
+<body>
+    <div class="container">
+        <!-- ส่วนของ Navigation Bar -->
+        <div id="nav-header">
+            <div class="logo">
+                <img src="..\src\bloom logo.png" alt="Logo" />
+            </div>
+        </div>
+
+        <section>
+            <!-- ส่วนของ Header -->
+            <div class="header">
+                <a href="http://localhost:8081/product-manage" class="back-button">
+                    <i class="bi bi-arrow-left-square"></i>
+                </a>
+                <h1>Add Products</h1>
+            </div>
+
+            <!-- ส่วนของ Form -->
+            <form id="updateProductForm">
+
+                <div class="form">
+                    <!-- ส่วนแบบฟอร์มด้านซ้าย -->
+                    <div class="form-left">
+                        <div class="form-group">
+                            <label for="product_id">Product ID</label>
+                            <input type="text" id="product_id" placeholder="e.g., PD123">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product_name">Product Name</label>
+                            <input type="text" id="product_name" placeholder="e.g., Sample Product">
+                        </div>
+                        <div class="form-group">
+                            <label for="category_name">Category Name</label>
+                            <select id="category_name" name="category_name">
+                                <option value="Default">Default</option>
+                                <option value="Body">Body</option>
+                                <option value="Serum">Serum</option>
+                                <option value="Moisturizer">Moisturizer</option>
+                                <option value="Sunscreen">Sunscreen</option>
+                                <option value="Cleanser">Cleanser</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" placeholder="Enter product description here..."></textarea>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" id="price" step="0.01" placeholder="e.g., 299.99">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product_rating">Rating</label>
+                            <input type="number" id="product_rating" step="0.1" max="5" placeholder="e.g., 4.5">
+                        </div>
+                        <div class="form-group">
+                            <label for="imageUpload">Upload Image</label>
+                            <input type="file" id="imageUpload" accept="image/*">
+                            <img id="imagePreview" src="" alt="Image Preview"
+                                style="display: none; width: 200px; height: auto; margin-top: 10px;">
+
+                        </div>
+                    </div>
+
+                    <!-- ส่วนแบบฟอร์มด้านขวา -->
+                    <div class="form-right">
+                        <div class="form-group">
+                            <label for="stock_quantity">Stock Quantity</label>
+                            <input type="number" id="stock_quantity" placeholder="e.g., 100">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="origin">Origin</label>
+                            <input type="text" id="origin" placeholder="e.g., USA">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="benefit">Benefit</label>
+                            <input type="text" id="benefit" placeholder="e.g., Hydration">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="skin_type">Skin Type</label>
+                            <input type="text" id="skin_type" placeholder="e.g., All">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" id="quantity" placeholder="e.g., 1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ingredients">Ingredients</label>
+                            <input type="text" id="ingredients" placeholder="e.g., Water, Glycerin">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="brand">Brand</label>
+                            <input type="text" id="brand" placeholder="e.g., Sample Brand">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group" style="margin-bottom: 30px;">
+                    <button type="submit" class="save" id="saveButton">Save</button>
+                </div>
+
+
+            </form>
+
+        </section>
+    </div>
+
+
+    <script src="/js/callProduct.js"></script>
+</body>
+
+</html>
+
+<script>
+    // ฟังก์ชันแสดงตัวอย่างภาพเมื่ออัปโหลด
+    document.getElementById('imageUpload').addEventListener('change', function (event) {
+        const file = event.target.files[0]; // Get the selected file
+        if (file) {
+            const reader = new FileReader(); // Create a FileReader to read the file
+            reader.onload = function (e) {
+                const preview = document.getElementById('imagePreview');
+                preview.src = e.target.result; // Set the image source to the file data
+                preview.style.display = 'block'; // Make the preview visible
+            };
+            reader.readAsDataURL(file); // Read the file as a data URL
+        }
+    });
+
+    // ฟังก์ชันโหลดข้อมูลสินค้าเพื่อแก้ไข
+    document.addEventListener("DOMContentLoaded", async () => {
+        const form = document.getElementById("updateProductForm");
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get("product_id");
+
+        if (productId) {
+            // If editing, fetch the product data and populate the form
+            const product = await fetchProduct(productId);
+            if (product) {
+                populateForm(product);
+            }
+        }
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData();
+            formData.append("product_id", document.getElementById("product_id").value);
+            formData.append("product_name", document.getElementById("product_name").value);
+            formData.append("category_name", document.getElementById("category_name").value);
+            formData.append("description", document.getElementById("description").value);
+            formData.append("price", parseFloat(document.getElementById("price").value));
+            formData.append("stock_quantity", parseInt(document.getElementById("stock_quantity").value));
+            formData.append("product_rating", parseFloat(document.getElementById("product_rating").value));
+            formData.append("origin", document.getElementById("origin").value);
+            formData.append("benefit", document.getElementById("benefit").value);
+            formData.append("skin_type", document.getElementById("skin_type").value);
+            formData.append("quantity", parseInt(document.getElementById("quantity").value));
+            formData.append("ingredients", document.getElementById("ingredients").value);
+            formData.append("brand", document.getElementById("brand").value);
+
+            const fileInput = document.getElementById("imageUpload");
+            if (fileInput.files[0]) {
+                formData.append("image", fileInput.files[0]);
+            }
+
+            if (productId) {
+                await updateProduct(formData, productId);
+            }
+
+            window.location.href = "/product-manage";
+        });
+    });
+
+    // ดึงข้อมูลสินค้าจาก API
+    async function fetchProduct(productId) {
+        try {
+            const response = await fetch(`http://localhost:8080/api/products/${productId}`);
+            if (!response.ok) {
+                console.error("Failed to fetch product:", response.statusText);
+                return null;
+            }
+            return await response.json();
+        } catch (error) {
+            console.error("Error fetching product:", error);
+            return null;
+        }
+    }
+
+    // เติมข้อมูลสินค้าลงในแบบฟอร์ม
+    function populateForm(product) {
+        document.getElementById("product_id").value = product.product_id || "";
+        document.getElementById("product_name").value = product.product_name || "";
+        document.getElementById("category_name").value = product.category_name || "Default";
+        document.getElementById("description").value = product.description || "";
+        document.getElementById("price").value = product.price || "";
+        document.getElementById("product_rating").value = product.product_rating || "";
+        document.getElementById("stock_quantity").value = product.stock_quantity || "";
+        document.getElementById("origin").value = product.origin || "";
+        document.getElementById("benefit").value = product.benefit || "";
+        document.getElementById("skin_type").value = product.skin_type || "";
+        document.getElementById("quantity").value = product.quantity || "";
+        document.getElementById("ingredients").value = product.ingredients || "";
+        document.getElementById("brand").value = product.brand || "";
+
+        if (product.image_url) {
+            const preview = document.getElementById("imagePreview");
+            preview.src = product.image_url;
+            preview.style.display = "block";
+        }
+    }
+
+    // อัปเดตข้อมูลสินค้าในระบบ
+    async function updateProduct(formData, productId) {
+        try {
+            const response = await fetch(`http://localhost:8080/api/products/${productId}`, {
+                method: "PUT",
+                body: formData,
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+            } else {
+                alert(`Error updating product: ${result.message}`);
+            }
+        } catch (error) {
+            console.error("Error updating product:", error);
+        }
+    }
+
+
+    // ฟังก์ชันสำหรับจัดการข้อมูลในหน้าเมื่อโหลดเสร็จสมบูรณ์
+    document.addEventListener("DOMContentLoaded", async () => {
+        const tableBody = document.querySelector("tbody");
+        const searchBar = document.querySelector(".search-bar");
+        const showAllButton = document.getElementById("show-all-button");
+
+        let allProducts = [];
+        // ฟังก์ชันสำหรับดึงข้อมูลสินค้าจาก API
+        async function fetchProducts() {
+            try {
+                // เรียก API เพื่อดึงข้อมูลสินค้าทั้งหมด
+                const response = await fetch("http://localhost:8080/api/products");
+                if (!response.ok) throw new Error("Failed to fetch products");
+                return await response.json();
+            } catch (error) {
+                console.error(error);
+                return [];
+            }
+        }
+        // ฟังก์ชันสำหรับแสดงข้อมูลสินค้าในตาราง
+        function displayProducts(products) {
+            tableBody.innerHTML = "";
+            products.forEach((product) => {
+                // สร้างแถวใหม่ในตารางสำหรับแต่ละสินค้า
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                <td><img src="${product.image_url}" alt="${product.product_name}" style="width: 50px; height: 50px;"></td>
+                <td>${product.product_id}</td>
+                <td>${product.product_name}</td>
+                <td>${product.brand || "-"}</td>
+                <td>${product.category_name || "Category"}</td>
+                <td>${product.stock_quantity || 0} in stock</td>
+                <td>${product.price || "0.00"} บาท</td>
+                <td>
+                    <button class="delete-button" data-id="${product.product_id}"><i class="bi bi-trash3"></i></button>
+                    <button class="edit-button" data-id="${product.product_id}">Edit</button>
+                </td>`;
+                tableBody.appendChild(row);
+            });
+        }
+        // ฟังก์ชันการค้นหาสินค้า
+        searchBar.addEventListener("input", () => {
+            const query = searchBar.value.toLowerCase();
+            const filteredProducts = allProducts.filter((product) =>
+                // กรองสินค้าตามเงื่อนไข (ชื่อสินค้า, รหัสสินค้า, หรือแบรนด์)
+                product.product_name.toLowerCase().includes(query) ||
+                product.product_id.toLowerCase().includes(query) ||
+                product.brand?.toLowerCase().includes(query)
+            );
+            displayProducts(filteredProducts);
+        });
+        // ฟังก์ชันสำหรับแสดงสินค้าทั้งหมด
+        showAllButton.addEventListener("click", () => {
+            searchBar.value = "";
+            displayProducts(allProducts);
+        });
+        // ดึงข้อมูลสินค้าทั้งหมดจาก API และแสดงในตาราง
+        allProducts = await fetchProducts();
+        displayProducts(allProducts);
+    });
+
+
+</script>

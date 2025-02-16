@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom - Search Results</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="../src/icon bloom.png" sizes="180x180">
+
+    <style>
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+
+        }
+
+        .product {
+            background-color: #ffffff;
+        }
+
+        .card {
+            border: 1px solid #000000;
+            padding: 16px;
+            /* ระยะห่างภายใน */
+            width: 200px;
+            /* ความกว้าง */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* เงา */
+            text-align: center;
+            /* จัดกึ่งกลางข้อความ */
+            background-color: #ffffff;
+            /* เพิ่มสีพื้นหลังเป็นสีขาว */
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .product-price {
+            color: rgb(220, 53, 69);
+            font-weight: bold;
+        }
+
+        .btn-buy {
+            background-color: #EC297B;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        * {
+            font-family: 'Poppins';
+            margin: 0;
+        }
+
+        body {
+            background-color: #F3F0EF;
+        }
+
+        #header-search {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .breadcrumbs {
+            padding: 10px 10px;
+            background-color: #ffffff;
+        }
+
+        .search-header {
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .search-container {
+            margin-top: 20px;
+        }
+
+        .container {
+            padding: 20px;
+            margin-left: 10rem;
+            margin-right: 10rem;
+        }
+
+        .filter {
+            width: 20%;
+            position: sticky;
+            top: 20px;
+            position: sticky;
+
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #000000;
+        }
+
+        .filter h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .results {
+            width: 80%;
+            display: flex;
+            flex-wrap: wrap;
+
+        }
+
+        #section-2 {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .product {
+            width: 25%;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #000000;
+            text-align: center;
+        }
+
+        .product img {
+            max-width: 100%;
+        }
+
+        .product p {
+            margin: 5px 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #F3F0EF;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 30px 20px;
+            background-color: #fff;
+            position: relative;
+        }
+
+        .logo img {
+            height: 90px;
+            margin-right: -10px;
+        }
+
+        .search-container {
+            display: flex;
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-bar {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background-color: #f3f3f3;
+            border-radius: 10px;
+            padding: 12px 16px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: none;
+            font-size: 16px;
+            padding-left: 10px;
+            color: #333;
+        }
+
+        .bi-search {
+            font-size: 18px;
+            color: black;
+        }
+
+        .bi-funnel {
+            font-size: 18px;
+            color: black;
+            cursor: pointer;
+        }
+
+        .cancel-button {
+            color: #666;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        .filter-section {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 300px;
+            background-color: white;
+        }
+
+        .filter-group {
+            margin-bottom: 32px;
+        }
+
+        /* ปรับปรุงส่วนของ Brand และ Price filter */
+        .filter-group.inline {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .filter-group label {
+            font-size: 20px;
+            color: black;
+            min-width: 80px;
+        }
+
+        .filter-group input[type="text"] {
+            flex: 1;
+            max-width: 600px;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f3f3f3;
+        }
+
+        .category-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .category-button {
+            padding: 8px 20px;
+            border: none;
+            background-color: #f3f3f3;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-button.active {
+            background-color: #e91e63;
+            color: white;
+        }
+
+        .price-inputs {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .price-inputs input {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f3f3f3;
+        }
+
+        .price-inputs span {
+            color: #666;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="search-container">
+            <div class="logo">
+                <a href="http://localhost:8081/"><img src="../src/bloom logo.png" alt="Bloom Logo"></a>
+            </div>
+            <div class="search-bar">
+                <!-- ไอคอนค้นหาแบบเดิม -->
+                <a href="http://localhost:8081/search-all" id="searchIcon" style="color: black;">
+                    <i class="bi bi-ui-checks-grid"></i>
+                </a>
+
+
+                <!-- ฟอร์มค้นหาใหม่ -->
+                <form id="searchForm" style="flex: 1; display: flex; align-items: center; margin-left: 10px;">
+                    <input type="text" id="searchInput" placeholder="searching"
+                        style="flex: 1; border: none; outline: none; padding: 5px 10px; border-radius: 5px;" />
+                    <button type="submit" style="border: none; background: none; cursor: pointer;">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+
+
+                <!-- ไอคอนฟิลเตอร์ -->
+                <i class="bi bi-funnel" id="filterIcon" style="margin-left: 10px; cursor: pointer;"></i>
+            </div>
+
+
+            <a href="http://localhost:8081/" class="cancel-button">Cancel</a>
+        </div>
+    </div>
+
+    <div class="filter-section" id="filterSection">
+        <div class="filter-group inline">
+            <label>Brand</label>
+            <input type="text" id="brandInput" placeholder="search by brand">
+        </div>
+        <!-- ฟิลเตอร์หมวดหมู่ -->
+        <div class="filter-group">
+            <label>Category</label>
+            <div class="category-buttons">
+                <button class="category-button" data-category="Body">Body</button>
+                <button class="category-button " data-category="serum">Serum</button>
+                <button class="category-button" data-category="moisturizer">Moisturizer</button>
+                <button class="category-button" data-category="Sunscreen">Sunscreen</button>
+                <button class="category-button" data-category="Cleanser">Cleanser</button>
+                <button class="category-button" data-category="Mask">Mask</button>
+            </div>
+        </div>
+        <!-- ฟิลเตอร์ราคา -->
+        <div class="filter-group inline">
+            <label>Price</label>
+            <div class="price-inputs">
+                <input type="text" id="priceMin" placeholder="Min price ฿">
+                <span>-</span>
+                <input type="text" id="priceMax" placeholder="Max price ฿">
+            </div>
+        </div>
+        <!-- ปุ่มค้นหา -->
+        <button id="searchButton">Search</button>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // จัดการเปิด/ปิดส่วนฟิลเตอร์
+            const filterIcon = document.getElementById('filterIcon');
+            const filterSection = document.getElementById('filterSection');
+
+            filterIcon.addEventListener('click', function () {
+                if (filterSection.style.display === 'none' || filterSection.style.display === '') {
+                    filterSection.style.display = 'block';
+                } else {
+                    filterSection.style.display = 'none';
+                }
+            });
+
+            // เพิ่มคลาส active ให้ปุ่มหมวดหมู่ที่เลือก
+            const categoryButtons = document.querySelectorAll('.category-button');
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+        // ฟังก์ชันสำหรับค้นหาผลลัพธ์ตามฟิลเตอร์
+        document.getElementById('searchButton').addEventListener('click', async () => {
+            const brand = document.getElementById('brandInput')?.value || '';
+            const priceMin = document.getElementById('priceMin')?.value || '';
+            const priceMax = document.getElementById('priceMax')?.value || '';
+            const selectedCategoryButton = document.querySelector('.category-button.active');
+            const category = selectedCategoryButton ? selectedCategoryButton.dataset.category : '';
+
+            console.log('Brand:', brand);
+            console.log('Category:', category);
+            console.log('Price Min:', priceMin);
+            console.log('Price Max:', priceMax);
+
+            const searchParams = { brand, category, priceMin, priceMax };
+
+            try {
+                console.log('Fetching filtered results...');
+                const results = await fetchFilteredResults(searchParams);
+
+                console.log('Search Results:', results);
+
+                window.location.href = '/search-result';
+            } catch (error) {
+                console.error('Error during search:', error);
+            }
+        });
+
+
+    </script>
+
+
+    <div class="container">
+        <!-- Search Bar -->
+        <div id="header-search">
+            <div style="margin-bottom: 10px;margin-top: 10px;">
+                <h3 class="result-header">Results for Search:</h3>
+            </div>
+
+        </div>
+
+        <!-- Filters -->
+        <div id="section-2">
+
+            <div id="product-container" class="product-container">
+                <!-- ผลลัพธ์จะแสดงที่นี่ -->
+            </div>
+
+            <!-- searchfilter, -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const searchResults = JSON.parse(localStorage.getItem('searchResults')) || [];
+                    const productContainer = document.getElementById('product-container');
+
+
+                    if (searchResults.length === 0) {
+                        productContainer.innerHTML = "<p>No products found.</p>";
+                        return;
+                    }
+
+                    searchResults.forEach((product) => {
+                        const productCard = document.createElement('div');
+                        productCard.className = 'card';
+
+                        productCard.innerHTML = `
+            <img src="${product.image_url}" alt="${product.product_name}" class="product-image">
+            <div class="product-name">${product.product_name}</div>
+            <div class="product-price">฿${product.price}</div>
+            <button class="btn-buy" data-id="${product.product_id} ">Buy now</button>
+        `;
+
+                        productContainer.appendChild(productCard);
+                    });
+
+                    // เพิ่ม Event Listener สำหรับปุ่ม Buy now
+                    productContainer.addEventListener("click", function (event) {
+                        if (event.target.classList.contains("btn-buy")) {
+                            const productId = event.target.getAttribute("data-id");
+                            if (productId) {
+                                // เปลี่ยนเส้นทางไปยัง Product_detail.html พร้อมแนบ product_id
+                                window.location.href = `/product-detail?product_id=${productId}`;
+                            }
+                        }
+                    });
+                });
+
+            </script>
+
+            <script type="module" src="/js/callsearch-filter.js"></script>
+            <script type="module" src="/js/callSearch.js"></script>
+
+
+        </div>
+        </main>
+
+        <!-- เพิ่มรายการผลลัพธ์เพิ่มเติมตามต้องการ -->
+    </div>
+
+
+
+
+
+</body>
+
+</html>
